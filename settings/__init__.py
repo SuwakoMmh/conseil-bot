@@ -1,1 +1,1 @@
-import settingsnewuser
+import settings.newuser
