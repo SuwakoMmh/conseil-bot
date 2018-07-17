@@ -1,3 +1,4 @@
+import settings.newuser
 async def addrole(client, member):
     if len(member.roles) == 1 :
         await client.add_roles(member, settings.newuser.roleid)
