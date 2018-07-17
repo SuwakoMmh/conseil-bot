@@ -14,8 +14,16 @@ async def on_ready():
         await modules.login.print_user(client)
     if settings.newuser.enabled:
         await modules.newuser.initscan(client)
-
+@client.event
+async def on_message():
+    if settings.restart.enabled:
+        await modules.restart.restart_py(client, message)
+@client.event
 async def on_member_join(member):
     if modules.newuser.enabled:
         await modules.newuser.addrole(client,member)
+@client.event
+async def on_error(event, *args, **kwargs):
+    if settings.embederror.enabled :
+        await modules.embederror.sendError(client, event, *args, **kwargs)
 client.run(os.environ['CONSEIL_TOKEN'])
