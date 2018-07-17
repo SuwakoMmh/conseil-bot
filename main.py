@@ -15,7 +15,7 @@ async def on_ready():
     if settings.newuser.enabled:
         await modules.newuser.initscan(client)
 @client.event
-async def on_message():
+async def on_message(message):
     if settings.restart.enabled:
         await modules.restart.restart_py(client, message)
 @client.event
