@@ -20,7 +20,7 @@ async def on_message(message):
         await modules.restart.restart_py(client, message)
 @client.event
 async def on_member_join(member):
-    if modules.newuser.enabled:
+    if settings.newuser.enabled:
         await modules.newuser.addrole(client,member)
 @client.event
 async def on_error(event, *args, **kwargs):
