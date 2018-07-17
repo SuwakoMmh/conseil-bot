@@ -18,3 +18,4 @@ async def on_ready():
 async def on_member_join(member):
     if modules.newuser.enabled:
         await modules.newuser.addrole(client,member)
+client.run(os.environ['DISCORD_TOKEN'])
