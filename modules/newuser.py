@@ -1,4 +1,5 @@
 import settings.newuser
+import discord
 async def addrole(client, member):
     print(member.roles)
     if len(member.roles) == 1 :
