@@ -26,4 +26,8 @@ async def on_member_join(member):
 async def on_error(event, *args, **kwargs):
     if settings.embederror.enabled :
         await modules.embederror.sendError(client, event, *args, **kwargs)
+@client.event
+async def on_reaction_add(reaction, user):
+    if settings.newuser.enabled:
+        await modules.newuser.giveroleReact(client, reaction, user, 'add')
 client.run(os.environ['CONSEIL_TOKEN'])
