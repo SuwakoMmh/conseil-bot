@@ -16,6 +16,7 @@ async def giveroleMessage(client, message):
             client.remove_roles(message.author, discord.utils.get(message.author.server.roles, id=settings.newuser.newuserroleid))
             client.add_roles(message.author, discord.utils.get(message.author.server.roles, id=settings.newuser.rulesroleid))
         except:
+            raise
             found=False
             for member in client.get_all_members():
                 if str(member.id) == str(message.author.id) :
