@@ -1,5 +1,6 @@
 import settings.newuser
 import discord
+import asyncio
 async def addrole(client, member):
     print(member.roles)
     if len(member.roles) == 1 :
@@ -13,16 +14,17 @@ async def initscan(client):
 async def giveroleMessage(client, message):
     if message.content=="/membre" :
         try:
-            client.remove_roles(message.author, discord.utils.get(message.author.server.roles, id=settings.newuser.newuserroleid))
-            client.add_roles(message.author, discord.utils.get(message.author.server.roles, id=settings.newuser.rulesroleid))
+            await client.add_roles(message.author, discord.utils.get(message.author.server.roles, id=settings.newuser.rulesroleid))
+            await asyncio.sleep(1)
+            await client.remove_roles(message.author, discord.utils.get(message.author.server.roles, id=settings.newuser.newuserroleid))
         except:
-            raise
             found=False
             for member in client.get_all_members():
                 if str(member.id) == str(message.author.id) :
                     try:
-                        client.remove_roles(message.author, discord.utils.get(message.author.server.roles, id=settings.newuser.newuserroleid))
-                        client.add_roles(message.author, discord.utils.get(message.author.server.roles, id=settings.newuser.rulesroleid))
+                        await client.add_roles(member, discord.utils.get(member.server.roles, id=settings.newuser.rulesroleid))
+                        await asyncio.sleep(1)
+                        await client.remove_roles(member, discord.utils.get(member.server.roles, id=settings.newuser.newuserroleid))
                         found=True
                     except:
                         pass
