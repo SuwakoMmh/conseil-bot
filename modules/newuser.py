@@ -2,12 +2,10 @@ import settings.newuser
 import discord
 import asyncio
 async def addrole(client, member):
-    print(member.roles)
     if len(member.roles) == 1 :
         await client.add_roles(member, discord.utils.get(member.server.roles, id=settings.newuser.newuserroleid))
 async def initscan(client):
     for member in client.get_all_members() :
-        print(member.roles)
         if len(member.roles) == 1:
             await client.add_roles(member, discord.utils.get(member.server.roles, id=settings.newuser.newuserroleid))
 
@@ -30,5 +28,27 @@ async def giveroleMessage(client, message):
                         pass
             if not found:
                 raise
+
 async def giveroleReact(client, reaction, user, action):
-    pass
+    print(str(reaction.custom_emoji))
+    print(str(reaction.emoji.name))
+    print("olol")
+    if reaction.custom_emoji :
+        if reaction.emoji.name.lower()=='lumagreen':
+            try:
+                await client.add_roles(user, discord.utils.get(user.server.roles, id=settings.newuser.rulesroleid))
+                await asyncio.sleep(1)
+                await client.remove_roles(user, discord.utils.get(user.server.roles, id=settings.newuser.newuserroleid))
+            except:
+                found=False
+                for member in client.get_all_members():
+                    if str(member.id) == str(user.id) :
+                        try:
+                            await client.add_roles(member, discord.utils.get(member.server.roles, id=settings.newuser.rulesroleid))
+                            await asyncio.sleep(1)
+                            await client.remove_roles(member, discord.utils.get(member.server.roles, id=settings.newuser.newuserroleid))
+                            found=True
+                        except:
+                            pass
+                if not found:
+                    raise

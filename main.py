@@ -30,6 +30,9 @@ async def on_error(event, *args, **kwargs):
         await modules.embederror.sendError(client, event, *args, **kwargs)
 @client.event
 async def on_reaction_add(reaction, user):
+    print("test1")
     if settings.newuser.enabled:
+        print("test3")
         await modules.newuser.giveroleReact(client, reaction, user, 'add')
+    print("test2")
 client.run(os.environ['CONSEIL_TOKEN'])
