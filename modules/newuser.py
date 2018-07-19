@@ -30,9 +30,6 @@ async def giveroleMessage(client, message):
                 raise
 
 async def giveroleReact(client, reaction, user, action):
-    print(str(reaction.custom_emoji))
-    print(str(reaction.emoji.name))
-    print("olol")
     if reaction.custom_emoji :
         if reaction.emoji.name.lower()=='lumagreen':
             try:

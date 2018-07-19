@@ -14,8 +14,13 @@ async def on_ready():
         await modules.login.print_user(client)
     if settings.newuser.enabled:
         await modules.newuser.initscan(client)
+    if settings.archive.enabled:
+        await modules.archive.initscan(client)
 @client.event
 async def on_message(message):
+    if settings.archive.enabled:
+        await modules.archive.specific(client, message)
+        await modules.archive.everyOfGuild(client, message)
     if settings.restart.enabled:
         await modules.restart.restart_py(client, message)
     if settings.newuser.enabled:
@@ -30,9 +35,6 @@ async def on_error(event, *args, **kwargs):
         await modules.embederror.sendError(client, event, *args, **kwargs)
 @client.event
 async def on_reaction_add(reaction, user):
-    print("test1")
     if settings.newuser.enabled:
-        print("test3")
         await modules.newuser.giveroleReact(client, reaction, user, 'add')
-    print("test2")
 client.run(os.environ['CONSEIL_TOKEN'])
